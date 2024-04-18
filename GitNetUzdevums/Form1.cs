@@ -77,5 +77,41 @@ namespace WindowsFormsApplication_15
                 x += step;
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            double m = 10; //mērogs
+            int xc = pictureBox1.Width / 2;   // centra koordinātes
+            int yc = pictureBox1.Height / 2;
+            int xe, ye;     // punktu "ekrāna" koordinātes
+            double x, y;   // punktu "matemātiskās" koordinātes
+            double step = 0.005;    // solis
+            Graphics G = pictureBox1.CreateGraphics();
+            G.Clear(System.Drawing.Color.White);
+            Pen myPen = new Pen(Color.Silver);
+            G.DrawLine(myPen, 10, yc, 2 * xc - 10, yc);   // asis
+            G.DrawLine(myPen, xc, 10, xc, 2 * yc - 10);
+            myPen = new Pen(Color.Red);
+            x = -Math.PI;
+            // funkcijas grafika konstruēšanas cikls
+            while (x < Math.PI+50)
+            {
+                try   // ja funkcija kādā punktā neeksistē 
+                {
+                    y = (x + 3) / (x - 2);
+                    if (x != 2)
+                    {
+                        // Calculate ellipse coordinates
+                        xe = (int)(xc + m * x);
+                        ye = (int)(yc - m * y);
+
+                        // Draw the ellipse
+                        G.DrawEllipse(myPen, xe, ye, 1, 1);
+                    }
+                }
+                catch { }
+                x += step;
+            }
+        }
     }
 }
